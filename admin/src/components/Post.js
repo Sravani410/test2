@@ -35,134 +35,10 @@ const Post = () => {
     setComments(data.comments);
   };
 
-  //   const handleCommentUpdate = async (commentId, updatedContent) => {
-  //     try {
-  //       const response = await fetch(`${BASE_URL}/comments/${commentId}`, {
-  //         method: "PUT",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ body: updatedContent }),
-  //       });
-
-  //       if (response.ok) {
-  //         const updatedComment = await response.json();
-
-  //         // Update the comments state with the modified comment
-  //         setComments((prevComments) =>
-  //           prevComments.map((comment) =>
-  //             comment.id === updatedComment.id ? updatedComment : comment
-  //           )
-  //         );
-  //       } else {
-  //         console.error("Failed to update comment");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error updating comment:", error);
-  //     }
-  //   };
-
-  //   const handleCommentUpdate = async (commentId) => {
-  //     try {
-  //       const commentToUpdate = comments.find(
-  //         (comment) => comment.id === commentId
-  //       );
-
-  //       const response = await fetch(`${BASE_URL}/comments/${commentId}`, {
-  //         method: "PUT",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ body: commentToUpdate.body }),
-  //       });
-
-  //       if (response.ok) {
-  //         // Update the comments state to reflect the updated comment
-  //         setComments((prevComments) =>
-  //           prevComments.map((comment) =>
-  //             comment.id === commentId
-  //               ? { ...comment, body: commentToUpdate.body }
-  //               : comment
-  //           )
-  //         );
-  //       } else {
-  //         console.error("Failed to update comment");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error updating comment:", error);
-  //     } finally {
-  //       // Reset the editing state after updating
-  //       setEditingCommentId(null);
-  //     }
-  //   };
   const handleCommentDelete = (commentId) => {
     setComments((prevComments) =>
       prevComments.filter((comment) => comment.id !== commentId)
     );
-  };
-  //   const handleCommentDelete = async (commentId) => {
-  //     try {
-  //       const response = await fetch(`${BASE_URL}/comments/${commentId}`, {
-  //         method: "DELETE",
-  //       });
-
-  //       if (response.ok) {
-  //         // Remove the deleted comment from the comments state
-  //         setComments((prevComments) =>
-  //           prevComments.filter((comment) => comment.id !== commentId)
-  //         );
-  //       } else {
-  //         console.error("Failed to delete comment");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error deleting comment:", error);
-  //     }
-  //   };
-
-  //   const handleCommentDelete = async (commentId) => {
-  //     try {
-  //       const response = await fetch(`${BASE_URL}/comments/${commentId}`, {
-  //         method: "DELETE",
-  //       });
-
-  //       if (response.ok) {
-  //         // Remove the deleted comment from the comments state
-  //         setComments((prevComments) =>
-  //           prevComments.filter((comment) => comment.id !== commentId)
-  //         );
-  //       } else {
-  //         console.error("Failed to delete comment");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error deleting comment:", error);
-  //     }
-  //   };
-
-  const handleUserUpdate = async (userId, updatedDetails) => {
-    try {
-      const response = await fetch(`${BASE_URL}/users/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedDetails),
-      });
-
-      if (response.ok) {
-        const updatedUser = await response.json();
-
-        // Update the users state with the modified user
-        setUsers((prevUsers) =>
-          prevUsers.map((user) =>
-            user.id === updatedUser.id ? updatedUser : user
-          )
-        );
-      } else {
-        console.error("Failed to update user");
-      }
-    } catch (error) {
-      console.error("Error updating user:", error);
-    }
   };
 
   const handleSearch = (event) => {
@@ -230,9 +106,7 @@ const Post = () => {
   };
   const handleCommentAdd = async (newComment) => {
     try {
-      // Implement the API call to add the comment here
 
-      // Dummy API request
       const response = await fetch(`${BASE_URL}/comments`, {
         method: "POST",
         headers: {
@@ -242,10 +116,10 @@ const Post = () => {
       });
 
       if (response.ok) {
-        // Generate a unique ID for the new comment
+
         const newCommentWithId = { ...newComment, id: uuidv4() };
 
-        // Update the comments state with the new comment
+
         setComments((prevComments) => [...prevComments, newCommentWithId]);
       } else {
         console.error("Failed to add comment");
@@ -256,10 +130,9 @@ const Post = () => {
   };
 
   useEffect(() => {
-    // Retrieve the comments from local storage
+
     const storedComments = JSON.parse(localStorage.getItem("comments")) || [];
 
-    // Update the comments state with the stored comments
     setComments(storedComments);
   }, []);
   return (
