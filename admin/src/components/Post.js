@@ -104,33 +104,8 @@ const Post = () => {
       }
     }
   };
-  const handleCommentAdd = async (newComment) => {
-    try {
-
-      const response = await fetch(`${BASE_URL}/comments`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newComment),
-      });
-
-      if (response.ok) {
-
-        const newCommentWithId = { ...newComment, id: uuidv4() };
-
-
-        setComments((prevComments) => [...prevComments, newCommentWithId]);
-      } else {
-        console.error("Failed to add comment");
-      }
-    } catch (error) {
-      console.error("Error adding comment:", error);
-    }
-  };
 
   useEffect(() => {
-
     const storedComments = JSON.parse(localStorage.getItem("comments")) || [];
 
     setComments(storedComments);
