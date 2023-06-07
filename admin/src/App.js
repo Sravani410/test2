@@ -5,12 +5,10 @@ import Post from "./components/Post";
 import User from "./components/user";
 import Navigation from "./components/Navigation";
 
-
 function App() {
   return (
     <div className="App">
       <Navigation />
-
       <Routes>
         <Route path="/" element={<Post />} />
         <Route path="/users" element={<User />} />

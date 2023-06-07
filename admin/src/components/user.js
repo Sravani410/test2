@@ -58,7 +58,6 @@ const User = () => {
         email: userToUpdate.email,
       };
 
-      // Implement the API call to update the user details here
       const response = await fetch(`${BASE_URL}/users/${userId}`, {
         method: "PUT",
         headers: {
@@ -68,13 +67,12 @@ const User = () => {
       });
 
       if (response.ok) {
-        // Update the users state with the modified user details
         setUsers((prevUsers) =>
           prevUsers.map((user) =>
             user.id === userId ? { ...user, ...updatedDetails } : user
           )
         );
-        setEditingUserId(null); // Exit edit mode after successful update
+        setEditingUserId(null);
       } else {
         console.error("Failed to update user details");
       }
@@ -82,33 +80,6 @@ const User = () => {
       console.error("Error updating user details:", error);
     }
   };
-
-  //   const handleUserUpdate = async (userId, updatedDetails) => {
-  //     try {
-  //       const response = await fetch(`${BASE_URL}/users/${userId}`, {
-  //         method: "PUT",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(updatedDetails),
-  //       });
-
-  //       if (response.ok) {
-  //         const updatedUser = await response.json();
-
-  //         // Update the users state with the modified user
-  //         setUsers((prevUsers) =>
-  //           prevUsers.map((user) =>
-  //             user.id === updatedUser.id ? updatedUser : user
-  //           )
-  //         );
-  //       } else {
-  //         console.error("Failed to update user");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error updating user:", error);
-  //     }
-  //   };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
