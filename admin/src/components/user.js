@@ -3,12 +3,7 @@ import React, { useState, useEffect } from "react";
 const BASE_URL = "https://dummyjson.com";
 
 const User = () => {
-  const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [comments, setComments] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(5);
   const [editingUserId, setEditingUserId] = useState(null);
 
   const enableUserEdit = (userId) => {
@@ -28,16 +23,9 @@ const User = () => {
   };
 
   useEffect(() => {
-    fetchPosts();
     fetchUsers();
-    fetchComments();
   }, []);
 
-  const fetchPosts = async () => {
-    const response = await fetch(`${BASE_URL}/posts`);
-    const data = await response.json();
-    setPosts(data.posts);
-  };
 
   const fetchUsers = async () => {
     const response = await fetch(`${BASE_URL}/users`);
@@ -45,11 +33,7 @@ const User = () => {
     setUsers(data.users);
   };
 
-  const fetchComments = async () => {
-    const response = await fetch(`${BASE_URL}/comments`);
-    const data = await response.json();
-    setComments(data.comments);
-  };
+
   const handleUserUpdate = async (userId) => {
     try {
       const userToUpdate = users.find((user) => user.id === userId);

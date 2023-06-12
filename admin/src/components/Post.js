@@ -13,7 +13,7 @@ const Post = () => {
 
   useEffect(() => {
     fetchPosts();
-    fetchUsers();
+    // fetchUsers();
     fetchComments();
   }, []);
 
@@ -23,12 +23,6 @@ const Post = () => {
     setPosts(data.posts);
   };
 
-  const fetchUsers = async () => {
-    const response = await fetch(`${BASE_URL}/users`);
-    const data = await response.json();
-    setUsers(data.users);
-  };
-
   const fetchComments = async () => {
     const response = await fetch(`${BASE_URL}/comments`);
     const data = await response.json();
@@ -36,6 +30,9 @@ const Post = () => {
   };
 
   const handleCommentDelete = (commentId) => {
+    setPosts((prevPosts) => {
+      prevPosts.filter((posts) => posts.id !== commentId);
+    });
     setComments((prevComments) =>
       prevComments.filter((comment) => comment.id !== commentId)
     );
@@ -107,7 +104,6 @@ const Post = () => {
 
   useEffect(() => {
     const storedComments = JSON.parse(localStorage.getItem("comments")) || [];
-
     setComments(storedComments);
   }, []);
   return (
@@ -125,6 +121,7 @@ const Post = () => {
         <table>
           <thead>
             <tr>
+              <th>Id</th>
               <th>Title</th>
               <th>Body</th>
               <th>Comment</th>
@@ -134,6 +131,7 @@ const Post = () => {
           <tbody>
             {getPaginatedData().map((post) => (
               <tr key={post.id}>
+                <td>{post.id}</td>
                 <td>{post.title}</td>
                 <td>{post.body}</td>
                 <td>
